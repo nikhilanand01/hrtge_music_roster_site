@@ -68,7 +68,7 @@
   .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
   header .eyebrow { margin-top: 16px; font-weight: 400; }
   .logo { display: block; width: clamp(44px, 7vw, 62px); height: auto; }
-  footer .logo { display: inline-block; width: 16px; height: 16px; vertical-align: -3px; margin-right: 4px; }
+  footer .logo { display: inline-block; width: 19px; height: 19px; vertical-align: -4px; margin-right: 4px; }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -152,16 +152,18 @@
   .modal-panel {
     position: relative;
     width: 100%;
-    max-width: 940px;
+    /* Bigger popup; the cap keeps the square photo within the screen height */
+    max-width: min(1100px, calc((100vh - 32px) * 2));
     max-height: calc(100vh - 32px);
     overflow: auto;
     background: var(--card);
     border-radius: 16px;
     display: grid;
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: 1fr 1fr;
   }
-  .modal-photo { display: block; width: 100%; height: 100%; min-height: 100%; object-fit: cover; background: var(--placeholder); }
-  .modal-body { padding: 40px 36px 36px; display: flex; flex-direction: column; gap: 8px; }
+  /* Desktop: the square photo sets the popup height; a long bio scrolls inside its column */
+  .modal-photo { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; align-self: start; object-fit: cover; background: var(--placeholder); }
+  .modal-body { padding: 40px 36px 36px; display: flex; flex-direction: column; gap: 8px; contain: size; overflow-y: auto; overscroll-behavior: contain; }
   .modal-body h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -.02em; }
   .modal-body .genre { font-size: 14px; }
   .modal-body .links { margin-top: 10px; padding-top: 0; }
@@ -188,12 +190,12 @@
   }
   @media (max-width: 720px) {
     .modal-panel { grid-template-columns: 1fr; }
-    .modal-photo { aspect-ratio: 1 / 1; height: auto; min-height: 0; }
-    .modal-body { padding: 24px 20px 28px; }
+    .modal-body { padding: 24px 20px 28px; contain: none; overflow: visible; }
   }
 
   footer { margin-top: 56px; font-size: 12px; color: var(--muted); text-align: center; }
   footer { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  footer .brand { font-size: 15px; }
   .contact {
     display: inline-block;
     padding: 10px 20px;
@@ -325,13 +327,16 @@
         <nav class="links">
           <a href="https://open.spotify.com/artist/4exRwr38tW2DlCNGl2gIqn" target="_blank" rel="noopener" aria-label="Spotify" title="Spotify"><img src="icons/spotify.png" alt="" width="18" height="18"></a>
           <a href="https://www.instagram.com/sandunesmusic/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><img src="icons/instagram.png" alt="" width="18" height="18"></a>
+          <a href="https://samply.app/p/95b16455-5030-4050-9b24-2c06ca91ee19?si=yGtVF9YCqdhppxkp2Rc1mmoSWJ32" target="_blank" rel="noopener" aria-label="Demo" title="Demo"><img src="icons/sound.png" alt="" width="18" height="18"></a>
         </nav>
         <a class="more" href="#sandunes" aria-label="More info about Sandunes">More info &rarr;</a>
       </div>
     </article>
 
     <article class="card">
-      <img class="photo" width="640" height="640" decoding="async" loading="lazy" src="raashi-kulkarni.webp" alt="Raashi Kulkarni">
+      <a class="photo-link" href="#raashi-kulkarni" aria-label="More info about Raashi Kulkarni">
+        <img class="photo" width="640" height="640" decoding="async" loading="lazy" src="raashi-kulkarni.webp" alt="Raashi Kulkarni">
+      </a>
       <div class="body">
         <h2>Raashi Kulkarni</h2>
         <p class="genre">Composer / Songwriter</p>
@@ -339,6 +344,7 @@
           <a href="https://open.spotify.com/artist/0EYczFo89g2p5Sq42Juiqc" target="_blank" rel="noopener" aria-label="Spotify" title="Spotify"><img src="icons/spotify.png" alt="" width="18" height="18"></a>
           <a href="https://www.instagram.com/raashikulkarni/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><img src="icons/instagram.png" alt="" width="18" height="18"></a>
         </nav>
+        <a class="more" href="#raashi-kulkarni" aria-label="More info about Raashi Kulkarni">More info &rarr;</a>
       </div>
     </article>
 
@@ -477,11 +483,33 @@
         <nav class="links">
           <a href="https://open.spotify.com/artist/4exRwr38tW2DlCNGl2gIqn" target="_blank" rel="noopener" aria-label="Spotify" title="Spotify"><img src="icons/spotify.png" alt="" width="18" height="18"></a>
           <a href="https://www.instagram.com/sandunesmusic/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><img src="icons/instagram.png" alt="" width="18" height="18"></a>
+          <a href="https://samply.app/p/95b16455-5030-4050-9b24-2c06ca91ee19?si=yGtVF9YCqdhppxkp2Rc1mmoSWJ32" target="_blank" rel="noopener" aria-label="Demo" title="Demo"><img src="icons/sound.png" alt="" width="18" height="18"></a>
         </nav>
         <div class="bio">
           <p>SANDUNES is the artist project of Sanaya Ardeshir&mdash;composer, producer, and sound artist from Mumbai/LA. Her sound is a constant evolution, ranging from experimental piano to cinematic art-pop, seamlessly melding electronic orchestration with live performance.</p>
           <p>Sandunes has performed globally at festivals like Lollapalooza and Roskilde, and iconic venues from London&rsquo;s Jazz Cafe to the Barbican Centre. Her portfolio includes commissions for Warp Records and Boiler Room, US tours supporting Pretty Lights, and opening slots for Bonobo. A recognized cultural force, she has remixed Anoushka Shankar, hosted a BBC Asian Network residency, and recently received the Matt Marks Impact Award.</p>
           <p>Beyond the stage, she is a pioneer in spatial audio and sound design, most recently composing for the landmark India in Fashion exhibition at Mumbai&rsquo;s NMACC. As co-founder of Ears to the Ground, she works at the intersection of art and ecology, further establishing her role as a guest lecturer for Ableton and Apple.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="modal" id="raashi-kulkarni" role="dialog" aria-modal="true" aria-labelledby="raashi-kulkarni-name">
+    <a class="modal-backdrop" href="#_" aria-label="Close"></a>
+    <div class="modal-panel">
+      <a class="modal-close" href="#_" aria-label="Close">&times;</a>
+      <img class="modal-photo" width="800" height="800" loading="lazy" decoding="async" src="raashi-kulkarni.webp" alt="Raashi Kulkarni">
+      <div class="modal-body">
+        <h2 id="raashi-kulkarni-name">Raashi Kulkarni</h2>
+        <p class="genre">Composer / Songwriter</p>
+        <nav class="links">
+          <a href="https://open.spotify.com/artist/0EYczFo89g2p5Sq42Juiqc" target="_blank" rel="noopener" aria-label="Spotify" title="Spotify"><img src="icons/spotify.png" alt="" width="18" height="18"></a>
+          <a href="https://www.instagram.com/raashikulkarni/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><img src="icons/instagram.png" alt="" width="18" height="18"></a>
+        </nav>
+        <div class="bio">
+          <p>Raashi Kulkarni is a composer and classical pianist based in Los Angeles. She has established a distinct compositional voice that can be heard across a variety of genres, including drama, comedy, adventure, animation, and action. Raashi&rsquo;s global perspective, study of different music disciplines, and passion for storytelling have been instrumental in the compositions she has developed for a vast spectrum of film and television projects. Her scoring work can be heard in the feature film, A Nice Indian Boy, starring Jonathan Groff and Karan Soni, directed by Roshan Sethi, the Netflix and Imagine Entertainment feature, Wedding Season, directed by Tom Dey, the award-winning documentary, Barefoot Empress, written and directed by Michelin Star Chef Vikas Khanna, the Disney+ film, World&rsquo;s Best, from director Roshan Sethi and producers Thomas Kail and Utkarsh Ambudkar, and the NAACP Image Award nominated documentary, ifine: beauty. Kulkarni is the 2023 recipient of The ASCAP Foundation David Rose Award and a 2024 ASCAP Composers&rsquo; Choice Award Nominee for Film Score of the Year (World&rsquo;s Best). PINCH, Raashi&rsquo;s latest feature film, had its world premiere at Tribeca Film Festival under the International Narrative Competition. Her most recent collaboration with DreamWorks Animation, Wednesdays with Gramps, premiered at the American Black Film Festival, went on to screen at dozens of festivals worldwide, and garnered multiple honors, including an NAACP Award. Its score earned her a Hollywood Music in Media nomination. She also earned a 2025 SCL David Raksin Award for Emerging Talent nomination and an ASCAP 2026 Composers&rsquo; Choice nomination for Film Score of the Year (A Nice Indian Boy).</p>
+          <p>In addition to film and television scoring, Raashi is a globally recognized musical artist. Her two independent music albums, Raashi (2018) and Afterglow (2020), debuted at #1 and #2, respectively, on the iTunes World Music Charts. Kulkarni actively contributes to the community as a current Governor and former Advisor on the Recording Academy&rsquo;s LA Chapter Board, a GRAMMY U Mentor, a Board of Directors member and former Executive Director of the Alliance for Women Film Composers, and as a participant in the prestigious Universal Composers Initiative (2021-2023). Raashi was one of eight composers and the first person of Indian origin to be selected. The two year program was developed by NBCUniversal&rsquo;s Global Talent Development &amp; Inclusion group partnered with Universal Global Film Music (Hollywood Reporter).</p>
+          <p>Over the last decade, Raashi has performed in concert tours across the globe with several prominent artists from the United States and India, including world-renowned Bollywood composers, Vishal Dadlani and Shekhar Ravjiani. She has performed as a featured pianist at the Shrine Auditorium, Kennedy Center, Smithsonian Museum, Patriot Center, Warner Theatre, and Kodak Hall. Her YouTube piano covers, which are arranged solely by ear, have been discovered and recognized by iHeartRadio, On Air with Ryan Seacrest, Capitol Records (as part of Beck&rsquo;s successful GRAMMY campaign), YouTube India, and Pharrell Williams&rsquo; partnership with The United Nations Foundation.</p>
         </div>
       </div>
     </div>
@@ -532,7 +560,7 @@
   </section>
 
   <footer>
-    <p><img class="logo" src="HRTGE-Icon-Accent-240.png" alt="HRTGE" width="60" height="60"> Music</p>
+    <p class="brand"><img class="logo" src="HRTGE-Icon-Accent-240.png" alt="HRTGE" width="60" height="60"> Music</p>
     <a class="contact" href="mailto:sanjay@hrtge.co,akhil@hrtge.co?subject=HRTGE%20Music%20Roster">Get in touch</a>
     <p class="copy">&copy; HRTGE 2026</p>
   </footer>
